@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head><title>Login</title></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
 <body>
-<h1>Login</h1>
-
-{% if form.errors %}
-  <div style="color:red;">Invalid username or password.</div>
-{% endif %}
-
-<form method="post">
-  {% csrf_token %}
-  <label>Username: {{ form.username }}</label><br>
-  <label>Password: {{ form.password }}</label><br>
-  <button type="submit">Login</button>
-</form>
-
-<p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+    <h1>Login</h1>
+    {% if form.errors %}
+        <p style="color: red;">Invalid username or password</p>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+    <p>
+        Don't have an account? <a href="{% url 'register' %}">Register here</a>
+    </p>
 </body>
 </html>

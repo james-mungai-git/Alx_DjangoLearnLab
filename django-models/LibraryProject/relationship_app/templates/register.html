@@ -1,27 +1,18 @@
 <!DOCTYPE html>
-<html>
-<head><title>Register</title></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
 <body>
-<h1>Register</h1>
-
-{% for message in messages %}
-  <div style="color:green;">{{ message }}</div>
-{% endfor %}
-
-<form method="post">
-  {% csrf_token %}
-  {% for field in form %}
-    <div>
-      <label>{{ field.label }}:</label>
-      {{ field }}
-      {% if field.errors %}
-        <div style="color:red;">{{ field.errors }}</div>
-      {% endif %}
-    </div>
-  {% endfor %}
-  <button type="submit">Register</button>
-</form>
-
-<p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+    <p>
+        Already have an account? <a href="{% url 'login' %}">Login here</a>
+    </p>
 </body>
 </html>

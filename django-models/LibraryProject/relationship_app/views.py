@@ -5,6 +5,7 @@ from django.contrib.auth.models import Permission
 from django.views.generic.detail import DetailView
 from .models import UserProfile, Book, Author, Library  # <- Library imported
 from .forms import UserRegisterForm
+from .models import Library
 
 # --------------------------
 # Role Check Functions

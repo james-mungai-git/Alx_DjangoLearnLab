@@ -5,6 +5,7 @@ from django.contrib.auth.models import Permission
 from .models import UserProfile, Book, Author
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth import login", "from django.contrib.auth.forms import UserCreationForm
 
 """
 ---------------------------------------------------------

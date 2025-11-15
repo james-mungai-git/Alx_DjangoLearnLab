@@ -1,18 +1,21 @@
-# relationship_app/views.py
-from django.shortcuts import render
-from django.views.generic.detail import DetailView
-from .models import Book, Library
-from .models import Library
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-# Function-based view to list all books
-def list_books(request):
-    """Function-based view to display all books"""
-    books = Book.objects.all()
-    return render(request, 'relationship_app/list_books.html', {'books': books})
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}! You can now log in.')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
 
-# Class-based view to display library details
-class LibraryDetailView(DetailView):
-    """Class-based view to display details for a specific library"""
-    model = Library
-    template_name = 'relationship_app/library_detail.html'
-    context_object_name = 'library'
+# Optional: Add a protected view to test authentication
+@login_required
+def profile(request):
+    return render(request, 'relationship_app/profile.html')

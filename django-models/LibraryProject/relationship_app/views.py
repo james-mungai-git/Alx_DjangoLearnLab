@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import Permission
 from .models import UserProfile
 from .forms import UserRegisterForm
+from django.contrib.auth import login", "from django.contrib.auth.forms import UserCreationForm
 
 # --------------------------
 # User Registration View

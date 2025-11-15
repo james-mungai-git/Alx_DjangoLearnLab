@@ -2,39 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>List of Books</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1 { color: #333; }
-        ul { list-style-type: none; padding: 0; }
-        li { 
-            background: #f4f4f4; 
-            margin: 5px 0; 
-            padding: 10px; 
-            border-radius: 5px;
-        }
-        .count { color: #666; font-style: italic; }
-    </style>
+    <title>Books List</title>
 </head>
 <body>
-    <h1>Books Available:</h1>
-    <p class="count">Total books: {{ books|length }}</p>
-    <ul>
-        {% for book in books %}
-        <li>
-            <strong>{{ book.title }}</strong> by {{ book.author.name }}
-            {% if book.publication_year %}
-                (Published {{ book.publication_year }})
-            {% endif %}
-        </li>
-        {% empty %}
-        <li>No books available in the database.</li>
-        {% endfor %}
-    </ul>
-    
-    <nav>
-        <p><a href="{% url 'relationship_app:library_list' %}">View All Libraries</a></p>
-        <p><a href="{% url 'relationship_app:home' %}">Home</a></p>
-    </nav>
+<h1>Books Available:</h1>
+<ul>
+    {% for book in books %}
+    <li>{{ book.title }} by {{ book.author.name }}</li>
+    {% empty %}
+    <li>No books available.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_book' %}">Add a New Book</a>
 </body>
 </html>

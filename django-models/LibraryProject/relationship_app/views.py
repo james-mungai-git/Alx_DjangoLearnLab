@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test, per
 from django.contrib.auth.models import Permission
 from .models import UserProfile, Book, Author
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import permission_required
 
 """
 ---------------------------------------------------------

@@ -131,3 +131,14 @@ LOGOUT_REDIRECT_URL = '/'  # Where to redirect after logout
 
 # Optional: Add this if you want to use a different login URL
 LOGIN_URL = 'login'
+"""
+Django settings for LibraryProject.  # Changed from djangomodels
+"""
+
+# ... existing code ...
+
+ROOT_URLCONF = 'LibraryProject.urls'  # Changed from djangomodels.urls
+
+WSGI_APPLICATION = 'LibraryProject.wsgi.application'  # Changed from djangomodels.wsgi.application
+
+# ... rest of your settings ...

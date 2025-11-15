@@ -3,7 +3,7 @@ import os
 import django
 
 # Set up Django environment
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangomodels.settings')  # replace with your project settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LibraryProject.settings')  # replace with your project settings
 django.setup()
 
 from relationship_app.models import Author, Book, Library, Librarian

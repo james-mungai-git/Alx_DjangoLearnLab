@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import Permission
 from .models import UserProfile
 from .forms import UserRegisterForm
-from django.contrib.auth import login", "from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+
+# --------------------------
+# Role-check function
+# --------------------------
+def is_admin(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
 
 # --------------------------
 # User Registration View
@@ -39,17 +45,27 @@ def register(request):
     return render(request, 'relationship_app/register.html', {'form': form})
 
 # --------------------------
-# Optional: Dashboard (requires login)
+# Dashboard (requires login)
 # --------------------------
 @login_required
 def dashboard(request):
     return render(request, 'relationship_app/dashboard.html', {'user_role': request.user.userprofile.role})
 
 # --------------------------
-# For login/logout, we use Django’s built-in views:
+# Login/Logout Views
 # --------------------------
 class CustomLoginView(LoginView):
     template_name = 'relationship_app/login.html'
 
 class CustomLogoutView(LogoutView):
     template_name = 'relationship_app/logout.html'
+
+# --------------------------
+# Admin-only view
+# --------------------------
+@login_required
+@user_passes_test(is_admin)
+def admin_view(request):
+    # Any context you want to pass
+    context = {'message': 'Welcome to the Admin Dashboard!'}
+    return render(request, 'relationship_app/admin_view.html', context)

@@ -35,12 +35,21 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
 
+    class Meta:
+        permissions = [
+            ("can_add_book", "Can add a new book"),
+            ("can_change_book", "Can edit existing book"),
+            ("can_delete_book", "Can delete a book"),
+        ]
+
     def __str__(self):
         return self.title
+
 
 class Library(models.Model):
     name = models.CharField(max_length=220)
@@ -48,6 +57,7 @@ class Library(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Librarian(models.Model):
     name = models.CharField(max_length=150)

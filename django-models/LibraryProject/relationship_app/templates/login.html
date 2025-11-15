@@ -35,10 +35,12 @@
         button:hover {
             background-color: #0056b3;
         }
-        .errorlist {
+        .error {
             color: red;
-            list-style: none;
-            padding: 0;
+            margin-bottom: 15px;
+        }
+        a {
+            color: #007bff;
         }
     </style>
 </head>
@@ -46,8 +48,8 @@
     <h1>Login</h1>
     
     {% if form.errors %}
-        <div style="color: red; margin-bottom: 15px;">
-            Your username and password didn't match. Please try again.
+        <div class="error">
+            Your username or password is incorrect. Please try again.
         </div>
     {% endif %}
     
@@ -66,9 +68,10 @@
         
         <button type="submit">Login</button>
     </form>
-    
+
     <p style="margin-top: 20px;">
         Don't have an account? <a href="{% url 'register' %}">Register here</a>
     </p>
+
 </body>
 </html>

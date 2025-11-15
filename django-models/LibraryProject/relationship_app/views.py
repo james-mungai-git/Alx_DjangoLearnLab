@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.contrib.auth.models import Permission
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile, Book, Author
 from .forms import UserRegisterForm
-from django.contrib.auth.decorators import permission_required
-from django.contrib.auth import login", "from django.contrib.auth.forms import UserCreationForm
 
 """
 ---------------------------------------------------------
@@ -23,7 +23,6 @@ def is_member(user):
 
 def is_admin_or_librarian(user):
     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role in ['Admin', 'Librarian']
-
 
 """
 ---------------------------------------------------------
@@ -59,7 +58,6 @@ def register(request):
 
     return render(request, 'relationship_app/register.html', {'form': form})
 
-
 """
 ---------------------------------------------------------
  ROLE-BASED VIEWS
@@ -85,21 +83,16 @@ def dashboard(request):
     user_role = request.user.userprofile.role
     return render(request, 'relationship_app/dashboard.html', {'user_role': user_role})
 
-
 """
 ---------------------------------------------------------
  BOOK CRUD VIEWS (Permission protected)
 ---------------------------------------------------------
 """
-
-# View all books - allowed for all logged-in users
 @login_required
 def book_list(request):
     books = Book.objects.all()
     return render(request, 'relationship_app/book_list.html', {'books': books})
 
-
-# Add book (Admin & Librarian have permission)
 @login_required
 @permission_required('relationship_app.can_add_book', raise_exception=True)
 def add_book(request):
@@ -119,8 +112,6 @@ def add_book(request):
     
     return render(request, 'relationship_app/add_book.html', {"authors": authors})
 
-
-# Edit book (Admin & Librarian have permission)
 @login_required
 @permission_required('relationship_app.can_change_book', raise_exception=True)
 def edit_book(request, pk):
@@ -141,8 +132,6 @@ def edit_book(request, pk):
 
     return render(request, 'relationship_app/edit_book.html', {"book": book, "authors": authors})
 
-
-# Delete book (Admin & Librarian have permission)
 @login_required
 @permission_required('relationship_app.can_delete_book', raise_exception=True)
 def delete_book(request, pk):

@@ -2,9 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.contrib.auth.models import Permission
-from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.detail import DetailView
-from .models import UserProfile, Book, Author, Library
+from .models import UserProfile, Book, Author, Library  # <- Library imported
 from .forms import UserRegisterForm
 
 # --------------------------
@@ -113,4 +112,21 @@ def edit_book(request, pk):
             messages.success(request, "Book updated successfully!")
             return redirect('list_books')
         else:
-            messages.error(req
+            messages.error(request, "Both title and author are required.")
+    return render(request, 'relationship_app/edit_book.html', {'book': book, 'authors': authors})
+
+@login_required
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    book.delete()
+    messages.success(request, "Book deleted successfully!")
+    return redirect('list_books')
+
+# --------------------------
+# Class-Based View for Library Detail
+# --------------------------
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'relationship_app/library_detail.html'  # <- template name
+    context_object_name = 'library'  # <- context variable used in template

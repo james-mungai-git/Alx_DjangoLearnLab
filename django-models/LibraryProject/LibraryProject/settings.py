@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'relationship_app',
     
 ]
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

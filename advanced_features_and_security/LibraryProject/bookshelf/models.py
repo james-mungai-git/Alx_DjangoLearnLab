@@ -26,7 +26,7 @@ class UserModel(AbstractUser):
 
 
 class CustomUserManage(BaseUserManager):
-    def user_model(self, username, email, password=None, **extra_fields):
+    def create_user(self, username, email, password=None, **extra_fields):
         if not email:
             raise ValueError("email address must be entered")
         
@@ -36,7 +36,7 @@ class CustomUserManage(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    def create_super_user(self, username, email,password=None, **extra_fields):
+    def create_superuser(self, username, email,password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_active", True)

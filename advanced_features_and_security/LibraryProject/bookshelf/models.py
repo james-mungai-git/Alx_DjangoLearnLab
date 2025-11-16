@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
 from .models import UserManager
 from django.db import models
-from django.conf import settings  # ✅ This is required
+from django.conf import settings  
+from django.db import models
 
 class UserProfile(models.Model):
     user = models.OneToOneField(
@@ -47,3 +48,16 @@ class UserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True.")
 
         return self.create_user(username, email, password, **extra_fields)
+
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'       # Login via email
+    REQUIRED_FIELDS = ['username'] # Required when creating superuser
+
+    def __str__(self):
+        return self.email

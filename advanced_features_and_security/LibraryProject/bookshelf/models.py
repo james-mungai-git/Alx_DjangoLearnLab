@@ -25,7 +25,7 @@ class UserModel(AbstractUser):
     objects= UserManager()
 
 
-class UserManager(BaseUserManager):
+class CustomUserManage(BaseUserManager):
     def user_model(self, username, email, password=None, **extra_fields):
         if not email:
             raise ValueError("email address must be entered")

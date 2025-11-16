@@ -1,17 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import Permission
+from django.contrib.auth import login
 from .models import UserProfile
 from .forms import UserRegisterForm
-from django.contrib.auth import login
+
 
 # --------------------------
-# Role-check function
+# Helper: Check if user is Admin
 # --------------------------
 def is_admin(user):
-    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+    return hasattr(user, "userprofile") and user.userprofile.role == "Admin"
+
 
 # --------------------------
 # User Registration View
@@ -23,7 +25,7 @@ def register(request):
             user = form.save()
             role = form.cleaned_data.get('role')
 
-            # Update UserProfile
+            # Update UserProfile role
             user_profile = UserProfile.objects.get(user=user)
             user_profile.role = role
             user_profile.save()
@@ -44,28 +46,51 @@ def register(request):
 
     return render(request, 'relationship_app/register.html', {'form': form})
 
+
 # --------------------------
-# Dashboard (requires login)
+# Dashboard (Login Required)
 # --------------------------
 @login_required
 def dashboard(request):
-    return render(request, 'relationship_app/dashboard.html', {'user_role': request.user.userprofile.role})
+    return render(
+        request,
+        'relationship_app/dashboard.html',
+        {'user_role': request.user.userprofile.role}
+    )
+
 
 # --------------------------
-# Login/Logout Views
+# Admin-only View
+# --------------------------
+@user_passes_test(is_admin)
+def admin_only_view(request):
+    return render(request, "relationship_app/admin_only.html")
+
+
+# --------------------------
+# Permission Protected Views
+# --------------------------
+@permission_required("relationship_app.can_add_book")
+def add_book_view(request):
+    return render(request, "relationship_app/permissions/add_book.html")
+
+
+@permission_required("relationship_app.can_change_book")
+def edit_book_view(request):
+    return render(request, "relationship_app/permissions/edit_book.html")
+
+
+@permission_required("relationship_app.can_delete_book")
+def delete_book_view(request):
+    return render(request, "relationship_app/permissions/delete_book.html")
+
+
+# --------------------------
+# Login / Logout
 # --------------------------
 class CustomLoginView(LoginView):
     template_name = 'relationship_app/login.html'
 
+
 class CustomLogoutView(LogoutView):
     template_name = 'relationship_app/logout.html'
-
-# --------------------------
-# Admin-only view
-# --------------------------
-@login_required
-@user_passes_test(is_admin)
-def admin_view(request):
-    # Any context you want to pass
-    context = {'message': 'Welcome to the Admin Dashboard!'}
-    return render(request, 'relationship_app/admin_view.html', context)

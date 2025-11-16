@@ -9,6 +9,17 @@ from .forms import UserRegisterForm
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 from .models import Book
+from django.shortcuts import render, get_object_or_404
+from .models import Library
+from django.views.generic import DetailView
+
+from django.views.generic import DetailView
+
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'relationship_app/library_detail.html'
+    context_object_name = 'library'  # this will be available in the template
+
 
 
 

@@ -8,43 +8,41 @@ django.setup()
 
 from relationship_app.models import Author, Book, Library, Librarian
 
-
+# 1. Query all books by a specific author
 def books_by_author_filter(author_name):
+    """
+    Returns a queryset of books written by the specified author.
+    If the author does not exist, returns None.
+    """
     try:
         author = Author.objects.get(name=author_name)
-        books = Book.objects.filter(author=author)  # using objects.filter approach
-        print(f"Books by {author_name} (using filter):")
-        if books.exists():
-            for book in books:
-                print(f"- {book.title}")
-        else:
-            print("No books found for this author.")
+        books = Book.objects.filter(author=author)  # required filter query
+        return books
     except Author.DoesNotExist:
-        print(f"No author found with the name '{author_name}'")
+        return None
 
 
 # 2. List all books in a library
 def books_in_library(library_name):
+    """
+    Returns all books inside the specified library.
+    If the library does not exist, returns None.
+    """
     try:
         library = Library.objects.get(name=library_name)
-        books = library.books.all()  # ManyToManyField
-        print(f"Books in {library_name}:")
-        if books.exists():
-            for book in books:
-                print(f"- {book.title}")
-        else:
-            print("No books found in this library.")
+        return library.books.all()
     except Library.DoesNotExist:
-        print(f"No library found with the name '{library_name}'")
+        return None
+
 
 # 3. Retrieve the librarian for a library
 def librarian_of_library(library_name):
+    """
+    Returns the librarian assigned to the specified library.
+    If library or librarian does not exist, returns None.
+    """
     try:
         library = Library.objects.get(name=library_name)
-        if hasattr(library, 'librarian'):
-            print(f"Librarian of {library_name}: {library.librarian.name}")
-        else:
-            print(f"No librarian assigned to {library_name}")
+        return getattr(library, 'librarian', None)
     except Library.DoesNotExist:
-        print(f"No library found with the name '{library_name}'")
-
+        return None

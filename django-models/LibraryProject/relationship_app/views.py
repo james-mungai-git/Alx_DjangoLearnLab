@@ -6,6 +6,8 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth import login
 from .models import UserProfile
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import permission_required
+
 
 
 # --------------------------

@@ -142,4 +142,4 @@ ROOT_URLCONF = 'LibraryProject.urls'  # Changed from djangomodels.urls
 WSGI_APPLICATION = 'LibraryProject.wsgi.application'  # Changed from djangomodels.wsgi.application
 
 # ... rest of your settings ...
-AUTH_USER_MODEL ='relationship_app.usermodel'
+AUTH_USER_MODEL = 'bookshelf.CustomUser'

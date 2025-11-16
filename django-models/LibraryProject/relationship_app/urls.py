@@ -9,6 +9,14 @@ from .views import (
     CustomLoginView,
     CustomLogoutView,
 )
+from django.urls import path
+from . import views
+
+
+urlpatterns = [
+    path('books/', views.list_books, name='list_books'),
+    # ... other paths like add_book/ and edit_book/
+]
 
 urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),

@@ -2,17 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Books List</title>
+    <title>List of Books</title>
 </head>
 <body>
-<h1>Books Available:</h1>
-<ul>
-    {% for book in books %}
-    <li>{{ book.title }} by {{ book.author.name }}</li>
-    {% empty %}
-    <li>No books available.</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'add_book' %}">Add a New Book</a>
+    <h1>Books Available:</h1>
+    <ul>
+        {% for book in books %}
+        <li>{{ book.title }} by {{ book.author.name }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

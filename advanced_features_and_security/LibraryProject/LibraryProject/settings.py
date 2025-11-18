@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'relationship_app',
+    'bookshelf',
     
 ]
 LOGIN_REDIRECT_URL = 'dashboard'
@@ -143,3 +144,22 @@ WSGI_APPLICATION = 'LibraryProject.wsgi.application'  # Changed from djangomodel
 
 # ... rest of your settings ...
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False  # Set False in production
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# Browser-side protections
+SECURE_BROWSER_XSS_FILTER = True  # Enables XSS filtering in browsers
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents MIME type sniffing
+X_FRAME_OPTIONS = 'DENY'  # Prevents your site from being framed (clickjacking protection)
+
+# Cookie security
+CSRF_COOKIE_SECURE = True  # Ensures CSRF cookie is sent only over HTTPS
+SESSION_COOKIE_SECURE = True  # Ensures session cookie is sent only over HTTPS
+
+# HTTPS settings
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS
+SECURE_HSTS_SECONDS = 31536000  # Enforce HSTS for 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True

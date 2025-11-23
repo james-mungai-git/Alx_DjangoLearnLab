@@ -68,5 +68,5 @@ def search_books(request):
     return render(request, 'bookshelf/book_list.html', {
         'form': form,
         'books': results,  # renamed from 'results' for template consistency
-        'query': query
+        'query': query,
     })

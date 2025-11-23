@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book
 from .forms import BookForm, BookSearchForm
+from .forms import ExampleForm
 
 
 @login_required

@@ -9,10 +9,10 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = "__all__"
 
-class Bookserializer(serializers.ModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        field = "__all__"
+        fields = "__all__"
     
     def validate_publication_year(self, value):
         current_year = date.today().year

@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 def home(request):
     return render(request, 'blog/base.html')
 
-def sign_up(request):
+def register(request):
     if request.method == "POST":
         form = Register(request.POST)
         if form.is_valid():
@@ -16,4 +16,4 @@ def sign_up(request):
     else:
         form = Register()
 
-    return render(request, "blog/sign_up.html", {"form": form})
+    return render(request, "blog/register.html", {"form": form})

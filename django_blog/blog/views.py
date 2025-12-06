@@ -6,6 +6,10 @@ from django.contrib.auth import login, logout, authenticate
 def home(request):
     return render(request, 'blog/base.html')
 
+
+def profile(request):
+    pass   
+
 def register(request):
     if request.method == "POST":
         form = Register(request.POST)

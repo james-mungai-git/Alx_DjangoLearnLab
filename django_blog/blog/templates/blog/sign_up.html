@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% block title %} login {% endblock %}
+ 
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token%}{{form|crispy}}
+    <p>already have an account log in <a href="{% url 'login' %}">here</a></p>
+
+    <button class="btn btn-success">register</button>
+</form>
+{% endblock %}

@@ -24,6 +24,175 @@ body {
 .span-text{
     color: azure;
 }
+.page-content {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
 
+.page-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #222;
+}
 
+/* Center the forms on the page */
+.page-content {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.login {
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 320px;
+}
+
+.login label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.login input {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}.register {
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 350px;
+}
+
+.register label {
+    display: block;          /* puts label on its own line */
+    margin-bottom: 0.5rem;   /* space below label */
+    font-weight: bold;
+}
+
+.register input {
+    display: block;          /* puts input on its own line */
+    width: 100%;             /* full width inside form */
+    margin-bottom: 1rem;     /* space between inputs */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Container for all posts */
+.page-content {
+    display: contents;
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+/* Heading */
+.page-content h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #222;
+}
+
+/* Individual post card */
+.post-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+/* Post title */
+.post-card h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+/* Post preview */
+.post-card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+/* Action buttons */
+.post-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.post-actions .btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+}
+
+/* Meta info */
+.post-meta {
+    display: block;
+    font-size: 0.85rem;
+    color: #888;
+    text-align: right;
+}
+/* Base button style */
+.btn {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Red delete button */
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Blue edit button */
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Link-style button */
+.btn-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}

@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import Register, PostForms
-from .models import Post
+from .forms import Register, PostForms, CommentForm
+from .models import Post, Comment
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
@@ -42,7 +43,9 @@ class PostUpdateView(UpdateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
-    template_name = "blog/blog_post.html"   
+    template_name = "blog/blog_post.html"  
+    success_url =  reverse_lazy('home')
+    
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
@@ -92,3 +95,57 @@ def logout_user(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
     return redirect("/login/")
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    comments = post.comments.all().order_by('-created_at')
+    
+    if request.method == "POST":
+        if not user.is_authenticated:
+            return render(request, 'blog/login.html')
+        
+        form = CommentForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.author = request.user
+            new_comment.save()
+            return redirect('blog/post_detail.html', pk=post.pk)
+        
+        else:
+            post = CommentForm()
+        
+        return render(request, 'blog/post_detail.html', {
+        'post': post,
+        'comments': comments,
+        'form': form,
+    })
+
+@method_decorator(login_required, name='dispatch')
+class CommentUpdateView(UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = "blog/comment_form.html"
+
+    def get_queryset(self):
+        # Only allow editing your own comments
+        return Comment.objects.filter(author=self.request.user)
+
+    def get_success_url(self):
+        return self.object.post.get_absolute_url()
+
+
+@method_decorator(login_required, name='dispatch')
+class CommentDeleteView(DeleteView):
+    model = Comment
+    template_name = "blog/comment_confirm_delete.html"
+
+    def get_queryset(self):
+        # Only allow deleting your own comments
+        return Comment.objects.filter(author=self.request.user)
+
+    def get_success_url(self):
+        return self.object.post.get_absolute_url()

@@ -1,25 +1,31 @@
 {% extends "blog/base.html" %}
+{% block title %}All Posts{% endblock %}
+
+{% block main_class %}page-content{% endblock %}
 
 {% block content %}
   <h2>All Posts</h2>
 
   {% for post in posts %}
-    <article>
+    <article class="post-card">
       <h3>{{ post.title }}</h3>
-      <p>{{ post.content }}</p>
+      <p>{{ post.content|truncatewords:30 }}</p>
 
-      {% if user == post.author %}
-        <!-- Link to DeleteView confirmation page -->
-        <a href="{% url 'post-delete' post.pk %}" class="btn btn-danger">Delete</a>
+      <div class="post-actions">
+        {% if user == post.author %}
+          <a href="{% url 'post-delete' post.pk %}" class="btn btn-danger">Delete</a>
+          <a href="{% url 'post-update' post.pk %}" class="btn btn-primary">Edit</a>
+        {% endif %}
 
-        <!-- Link to UpdateView (edit post) -->
-        <a href="{% url 'post-update' post.pk %}" class="btn btn-primary">Edit</a>
-      {% endif %}
+        {% if user.is_authenticated %}
+        <a href="{% url 'post-detail' post.pk %}">Read more</a>
 
-      <!-- Link to post detail page -->
-      <a href="{% url 'post-detail' post.pk %}">Read more</a>
+        {% else %}
+        <a href="{% url 'login' %}?next={% url 'post-detail' post.pk %}">Read more</a>
+        {% endif %}
+      </div>
 
-      <small>By {{ post.author }} on {{ post.published_date }}</small>
+      <small class="post-meta">By {{ post.author }} on {{ post.published_date }}</small>
     </article>
   {% empty %}
     <p>No posts yet.</p>

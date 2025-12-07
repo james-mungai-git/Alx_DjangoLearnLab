@@ -1,13 +1,19 @@
 {% extends 'blog/base.html' %}
-{% block title %} login {% endblock %}
- 
+{% block title %}Login{% endblock %}
 {% load crispy_forms_tags %}
 
-{% block content %}
-<form method="post">
-    {% csrf_token%}{{form|crispy}}
-    <p>dont have an account create one <a href="{% url 'register' %}">here</a></p>
+{% block main_class %}page-content{% endblock %}
 
-    <button class="btn btn-success">login</button>
+{% block content %}
+<form method="post" class="login">
+    {% csrf_token %}
+    <label for="id_username">Username</label>
+    {{ form.username }}
+    
+    <label for="id_password">Password</label>
+    {{ form.password }}
+    
+    <p>Don't have an account? <a href="{% url 'register' %}">Create one here</a></p>
+    <button type="submit" class="btn btn-success">Login</button>
 </form>
 {% endblock %}

@@ -1,13 +1,25 @@
 {% extends 'blog/base.html' %}
-{% block title %} login {% endblock %}
- 
+{% block title %}Register{% endblock %}
 {% load crispy_forms_tags %}
 
-{% block content %}
-<form method="post">
-    {% csrf_token%}{{form|crispy}}
-    <p>already have an account log in <a href="{% url 'login' %}">here</a></p>
+{% block main_class %}page-content{% endblock %}
 
-    <button class="btn btn-success">register</button>
+{% block content %}
+<form method="post" class="register">
+    {% csrf_token %}
+    <label for="id_username">Username</label>
+    {{ form.username }}
+
+    <label for="id_email">Email</label>
+    {{ form.email }}
+
+    <label for="id_password1">Password</label>
+    {{ form.password1 }}
+
+    <label for="id_password2">Confirm Password</label>
+    {{ form.password2 }}
+
+    <p>Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
+    <button type="submit" class="btn btn-success">Register</button>
 </form>
 {% endblock %}

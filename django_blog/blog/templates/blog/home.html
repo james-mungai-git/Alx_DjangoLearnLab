@@ -2,18 +2,22 @@
 
 {% block content %}
   <h2>All Posts</h2>
+
   {% for post in posts %}
     <article>
       <h3>{{ post.title }}</h3>
       <p>{{ post.content }}</p>
 
       {% if user == post.author %}
-        <form method="post">
-          {% csrf_token %}
-          <input type="hidden" name="post_id" value="{{ post.id }}">
-          <button class="btn btn-danger" type="submit">Delete</button>
-        </form>
+        <!-- Link to DeleteView confirmation page -->
+        <a href="{% url 'post-delete' post.pk %}" class="btn btn-danger">Delete</a>
+
+        <!-- Link to UpdateView (edit post) -->
+        <a href="{% url 'post-update' post.pk %}" class="btn btn-primary">Edit</a>
       {% endif %}
+
+      <!-- Link to post detail page -->
+      <a href="{% url 'post-detail' post.pk %}">Read more</a>
 
       <small>By {{ post.author }} on {{ post.published_date }}</small>
     </article>

@@ -15,7 +15,7 @@
     <header class="header">
         <nav class="nav-links">
             <div class="nav-link"><a href="/home">home</a></div>
-            <div class="nav-link"><a href="{% url 'blog' %}"> post </a></div>
+            <div class="nav-link"><a href="{% url 'post-create' %}"> post </a></div>
             <div class="nav-link"><a href="/contact">contact us</a></div>
             <div class="nav-link">
                 {% if user.is_authenticated %}

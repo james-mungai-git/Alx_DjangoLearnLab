@@ -4,7 +4,10 @@
 {% block main_class %}page-content{% endblock %}
 
 {% block content %}
-  <h2>All Posts</h2>
+
+<div class="posts">
+
+   <h2>All Posts</h2>
 
   {% for post in posts %}
     <article class="post-card">
@@ -30,4 +33,7 @@
   {% empty %}
     <p>No posts yet.</p>
   {% endfor %}
+
+</div>
+ 
 {% endblock %}

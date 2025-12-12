@@ -24,11 +24,6 @@ body {
 .span-text{
     color: azure;
 }
-.page-content {
-    padding: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-}
 
 .page-heading {
     font-size: 2.5rem;
@@ -38,20 +33,29 @@ body {
     color: #222;
 }
 
-/* Center the forms on the page */
+
 .page-content {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 80vh;           
+    display: grid;              
+    justify-content: center;      
+    align-items: center;          
 }
 
 .login {
-    padding: 2rem;
+    padding: 4rem;
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     width: 320px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    transition: box-shadow 0.5s ease;
+   
+}
+
+.login:hover{
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
 
 .login label {
@@ -67,35 +71,35 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-}.register {
-    padding: 2rem;
+}
+.register {
+    padding: 4rem;
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     width: 350px;
+    transition: box-shadow 0.5s ease;
+}
+
+.register:hover{
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+
+
 }
 
 .register label {
-    display: block;          /* puts label on its own line */
-    margin-bottom: 0.5rem;   /* space below label */
+    display: block;          
+    margin-bottom: 0.5rem;   
     font-weight: bold;
 }
 
 .register input {
-    display: block;          /* puts input on its own line */
-    width: 100%;             /* full width inside form */
-    margin-bottom: 1rem;     /* space between inputs */
+    display: block;          
+    width: 100%;             
+    margin-bottom: 1rem;    
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-/* Container for all posts */
-.page-content {
-    display: contents;
-    max-width: 500px;
-    margin: 3rem auto;
-    padding: 0 1rem;
 }
 
 /* Heading */
@@ -105,7 +109,11 @@ body {
     margin-bottom: 2rem;
     color: #222;
 }
-
+.posts{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
 /* Individual post card */
 .post-card {
     background: #fff;
@@ -114,6 +122,7 @@ body {
     padding: 1.5rem;
     margin-bottom: 2rem;
     transition: box-shadow 0.3s ease;
+    width: 1000px;
 }
 
 .post-card:hover {
@@ -195,4 +204,15 @@ body {
 
 .btn-link:hover {
     text-decoration: underline;
+}
+
+.post-form{
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.post-detail{
+    margin: 2rem;
 }

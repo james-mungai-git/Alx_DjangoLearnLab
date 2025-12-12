@@ -16,7 +16,7 @@ class PostListView(ListView):
     model = Post
     template_name = "blog/home.html"
     context_object_name = "posts"
-    ordering = ['-published_date']  
+              
 
 class PostDetailView(DetailView):
     model = Post
@@ -32,13 +32,6 @@ class PostCreateView(CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
-class PostUpdateView(UpdateView):
-    model = Post
-    form_class = PostForms  
-    template_name = "blog/blog_post.html"
-    success_url = reverse_lazy('home')
-    
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -96,56 +89,46 @@ def logout_user(request):
     messages.success(request, "Logged out successfully!")
     return redirect("/login/")
 
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.all().order_by('-created_at')
-    
-    if request.method == "POST":
-        if not user.is_authenticated:
-            return render(request, 'blog/login.html')
-        
-        form = CommentForm(request.POST)
-        
-        if form.is_valid():
-            form.save()
-            
-            new_comment = form.save(commit=False)
-            new_comment.post = post
-            new_comment.author = request.user
-            new_comment.save()
-            return redirect('blog/post_detail.html', pk=post.pk)
-        
-        else:
-            post = CommentForm()
-        
-        return render(request, 'blog/post_detail.html', {
-        'post': post,
-        'comments': comments,
-        'form': form,
-    })
-
-@method_decorator(login_required, name='dispatch')
-class CommentUpdateView(UpdateView):
+# coomment views
+class CommentCreateView(CreateView):
     model = Comment
+    template_name = "blog/post-comment.html" 
     form_class = CommentForm
-    template_name = "blog/comment_form.html"
-
-    def get_queryset(self):
-        # Only allow editing your own comments
-        return Comment.objects.filter(author=self.request.user)
-
-    def get_success_url(self):
-        return self.object.post.get_absolute_url()
+    success_url = reverse_lazy("post-detail")
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
-@method_decorator(login_required, name='dispatch')
-class CommentDeleteView(DeleteView):
+class CommentDetailView(DetailView):
     model = Comment
-    template_name = "blog/comment_confirm_delete.html"
+    template_name = "blog/comment-detail.html"  
+    context_object_name = 'comments'
+    
 
-    def get_queryset(self):
-        # Only allow deleting your own comments
-        return Comment.objects.filter(author=self.request.user)
+class CommentListView(ListView):
+    model = Comment
+    template_name = "blog/comment-list.html"  
+    context_object_name = 'comments'
 
-    def get_success_url(self):
-        return self.object.post.get_absolute_url()
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    template_name = "blog/post-comment.html" 
+    fields = ['content']  
+    success_url = reverse_lazy("post-detail")
+    
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    template_name = "blog/comment_delete.html"  
+    success_url = reverse_lazy("post-detail")
+    
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author

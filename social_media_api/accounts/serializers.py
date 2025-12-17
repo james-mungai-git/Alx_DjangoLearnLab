@@ -1,6 +1,11 @@
 from rest_framework import serializers
 from . models import User
 from django.contrib.auth import authenticate
+from django.contrib.auth import get_user_model
+from rest_framework.authtoken.models import Token
+
+
+User = get_user_model
 
      
 # Simple registration
@@ -28,6 +33,9 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         user.bio = validated_data.get("bio", "")
         user.profile_picture = validated_data.get("profile_picture", None)
         user.save()
+        
+        token = Token.objects.create(user=user)
+        user.token = token.key
 
         return user
     

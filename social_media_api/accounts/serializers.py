@@ -54,6 +54,10 @@ class LoginSerializer(serializers.Serializer):
 
         if user and user.is_active:
             return user
+        
+        token = Token.objects.create(user=user)
+        user.token = token.key
+
 
         raise serializers.ValidationError("Invalid credentials")
     

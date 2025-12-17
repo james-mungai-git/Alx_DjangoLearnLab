@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librarian Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background: #007bff;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav-links {
+            margin-top: 20px;
+        }
+        .nav-links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 Librarian Dashboard</h1>
+        <p>Welcome, {{ user.username }} ({{ user.userprofile.role }})</p>
+    </div>
+    
+    <div class="content">
+        <h2>Library Management</h2>
+        <p>As a Librarian, you can:</p>
+        <ul>
+            <li>Manage book catalog</li>
+            <li>Process book checkouts and returns</li>
+            <li>Manage member accounts</li>
+            <li>Generate library reports</li>
+            <li>Handle book reservations</li>
+        </ul>
+        
+        <h3>Today's Tasks:</h3>
+        <ul>
+            <li>Process 5 pending checkouts</li>
+            <li>Add new arrivals to catalog</li>
+            <li>Follow up on overdue books</li>
+        </ul>
+        
+        <div class="nav-links">
+            <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        </div>
+    </div>
+</body>
+</html>

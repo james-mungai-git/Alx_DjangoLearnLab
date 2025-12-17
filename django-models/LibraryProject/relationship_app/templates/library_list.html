@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Libraries</title>
+</head>
+<body>
+    <h1>All Libraries</h1>
+    <ul>
+        {% for library in libraries %}
+        <li>
+            <a href="{% url 'relationship_app:library_detail' library.pk %}">
+                {{ library.name }}
+            </a>
+            {% if library.librarian %} - {{ library.librarian.name }}{% endif %}
+            ({{ library.books.count }} books)
+        </li>
+        {% empty %}
+        <li>No libraries available.</li>
+        {% endfor %}
+    </ul>
+    
+    <nav>
+        <p><a href="{% url 'relationship_app:list_books' %}">View All Books</a></p>
+    </nav>
+</body>
+</html>

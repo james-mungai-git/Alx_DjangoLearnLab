@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background: #dc3545;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav-links {
+            margin-top: 20px;
+        }
+        .nav-links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔧 Admin Dashboard</h1>
+        <p>Welcome, {{ user.username }} ({{ user.userprofile.role }})</p>
+    </div>
+    
+    <div class="content">
+        <h2>Administrative Controls</h2>
+        <p>As an Admin, you have full system access:</p>
+        <ul>
+            <li>Manage all users and their roles</li>
+            <li>Configure system settings</li>
+            <li>Access all library records</li>
+            <li>Generate system reports</li>
+            <li>Manage librarian accounts</li>
+        </ul>
+        
+        <h3>Quick Actions:</h3>
+        <div class="nav-links">
+            <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        </div>
+    </div>
+</body>
+</html>

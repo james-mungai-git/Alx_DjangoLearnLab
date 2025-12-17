@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Books</h1>
+    <a href="{% url book-create%}"> add new book</a>
+
+    {% for book in books%}
+    {{book.title}} ({{book.publication.year}}) by {{book.author}}
+    <a href="{% url 'book-detail' book.pk %}">View</a>
+    - <a href="{% url 'book-update' book.pk %}">Edit</a>
+    - <a href="{% url 'book-delete' book.pk %}">Delete</a>
+
+    {%empty%}
+      <li>no books available</li>
+    {% endblock %}
+</body>
+</html>

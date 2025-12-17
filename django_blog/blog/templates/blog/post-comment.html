@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% block title %}comment on {{post.title}}{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block main_class %}page-content{% endblock %}
+
+{% block content %}
+<h1> comment on {{post.title}}</h1>
+
+<form method="post" class="login">
+    {% csrf_token %}
+    <label for="id_content">Content</label>
+    {{ form.content }}
+    <button type="submit" class="btn btn-success">submit</button>
+</form>
+
+
+{% endblock %}

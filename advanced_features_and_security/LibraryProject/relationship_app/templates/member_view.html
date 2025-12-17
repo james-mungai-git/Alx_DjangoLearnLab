@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background: #28a745;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav-links {
+            margin-top: 20px;
+        }
+        .nav-links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .book-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>👤 Member Dashboard</h1>
+        <p>Welcome, {{ user.username }} ({{ user.userprofile.role }})</p>
+    </div>
+    
+    <div class="content">
+        <h2>Your Library Account</h2>
+        <p>As a Member, you can:</p>
+        <ul>
+            <li>Browse and search books</li>
+            <li>Check out books (up to 5 at a time)</li>
+            <li>Renew books online</li>
+            <li>View your reading history</li>
+            <li>Place holds on books</li>
+        </ul>
+        
+        <h3>Currently Checked Out:</h3>
+        <div class="book-list">
+            <div class="book-card">
+                <strong>The Great Gatsby</strong><br>
+                Due: 2024-01-15
+            </div>
+            <div class="book-card">
+                <strong>To Kill a Mockingbird</strong><br>
+                Due: 2024-01-20
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        </div>
+    </div>
+</body>
+</html>

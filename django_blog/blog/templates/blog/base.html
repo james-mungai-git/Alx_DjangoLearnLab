@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="header">
+        <nav class="nav-links">
+            <div class="nav-link"><a href="/home">home</a></div>
+            <div class="nav-link"><a href="{% url 'post-create' %}"> post </a></div>
+            <div class="nav-link"><a href="/contact">contact us</a></div>
+            <div class="nav-link">
+                {% if user.is_authenticated %}
+                    <span class="span-text">logged in as {{ user.username }}</span> <br>
+                    <a href="{% url 'logout' %}">logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}">login</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main page content -->
+    <main class="{% block main_class %}page-content{% endblock %}">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>

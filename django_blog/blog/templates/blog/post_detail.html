@@ -1,0 +1,56 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block main_class %}page-content{% endblock %}
+
+{% block content %}
+
+<div class="post-detail">
+    <article class="post-detail">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <small>By {{ post.author }} on {{ post.published_date }}</small>
+    </article>
+
+    <section class="comments">
+      <h3>Comments</h3>
+
+      {% for comment in comments %}
+        <div class="comment">
+            <p><strong>{{ comment.author.username }}</strong> said:</p>
+            <p>{{ comment.content }}</p>
+            <small>{{ comment.created_at }}</small>
+
+            {% if user.is_authenticated and user == comment.author %}
+                <p>
+                    <a href="{% url 'comment_edit' comment.pk %}">Edit</a> |
+                    <a href="{% url 'comment_delete' comment.pk %}">Delete</a>
+                </p>
+            {% endif %}
+        </div>
+       
+      {% empty %}
+         <p>No comments yet. Be the first to comment!</p>
+      {% endfor %}
+    </section>
+
+      {% if user.is_authenticated %}
+      <section class="add-comment">
+          <h3>Leave a Comment</h3>
+          <a href="{% url 'comment-create' post.pk %}" class="btn btn-success">post comment</a>
+      </section>
+  {% else %}
+      <p>
+        <a href="{% url 'login' %}">Login</a> to leave a comment.
+      </p>
+  {% endif %}
+
+</div>
+
+
+
+  
+  
+
+
+{% endblock %}

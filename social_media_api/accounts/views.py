@@ -1,4 +1,4 @@
-from rest_framework import generics, permissions
+from rest_framework import viewsets, permissions, generics
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from .models import User
@@ -44,4 +44,3 @@ class ProfileView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
-    

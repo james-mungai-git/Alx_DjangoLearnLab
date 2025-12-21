@@ -3,9 +3,10 @@ from .models import Post, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
+    author_name =serializers.SerializerMethodField(source='author')
     class Meta:
         model = Post
-        fields = ["id", "author", "title", "content", "created_at"]
+        fields = ["id", "author_name", "title", "content", "created_at"]
         read_only_fields = ["id", "author", "created_at"] 
         
     def create(self, validated_data):
@@ -15,8 +16,12 @@ class PostSerializer(serializers.ModelSerializer):
             content=validated_data["content"],
         )
         return post
+    def get_author_name(self,obj):
+        return obj.author.username
 
 class CommentSerializer(serializers.ModelSerializer):
+    author_name =serializers.SerializerMethodField(source='author')
+
     class Meta:
         model = Comment
         fields = ["author","content"]
@@ -28,4 +33,5 @@ class CommentSerializer(serializers.ModelSerializer):
             )
             
             return comment
-        
+        def get_author_name(self, obj):
+            return obj.author.username

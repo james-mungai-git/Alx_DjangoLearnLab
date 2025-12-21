@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Post, Comment
-from django.contrib.auth import authenticate
 
 
 class PostSerializer(serializers.ModelSerializer):

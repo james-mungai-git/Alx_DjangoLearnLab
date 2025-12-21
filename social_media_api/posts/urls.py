@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import PostViewSet, CommentViewSet, follow_user, unfollow_user, feed_view
+from .views import PostViewSet, CommentViewSet, feed_view
 
 urlpatterns = [
     path('/create-post/',PostViewSet.as_view({'get': 'list', 
@@ -12,8 +12,6 @@ urlpatterns = [
                                                 'put':  'update',
                                                 'post': 'create'}),
          name='create-post'),
-    path('/follow/<int:user_id>/', views.follow_user, name='follow-user'),
-    path('/unfollow/<int:user_id>/',  views.unfollow_user, name='unfollow-user'),
     path('/feed/', views.feed_view, name='feed'),
                                                       
 ]

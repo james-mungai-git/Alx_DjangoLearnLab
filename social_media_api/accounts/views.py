@@ -49,7 +49,15 @@ class ProfileView(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
     
-    
+ 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def list_users(request):
+    users = CustomUser.objects.all()   
+    data = [{"id": u.id, "username": u.username} for u in users]
+    return Response(data)
+
+   
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def follow_user(request, user_id):

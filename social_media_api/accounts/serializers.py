@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
 
 
-User = get_user_model()
+User = get_user_model().object.create_user
 
      
 # Simple registration

@@ -1,24 +1,20 @@
 from django.urls import path
-from . import views
-from rest_framework.authtoken.views import obtain_auth_token
+from .views import (
+    RegisterView,
+    LoginView,
+    menuitems,
+    singleitem,
+    MealItemView,
+    cart,
+    OrderView,
+)
+
 urlpatterns = [
-    path(
-        'menu-items/',
-        views.MealItemViewSet.as_view(),
-        name='menu-items'
-    ),
-    path(
-        'menu-items/<int:pk>/',
-        views.MealItemViewSet.as_view(),
-        name='single-item'
-    ),
-    path(
-        'menu/',
-        views.menu,
-        name='menu'
-    ),
-    path('secret/', views.secret),
-    path('auth-token/', obtain_auth_token),
-    path('manager-view/', views.manager_view),
-    path('groups/managers/users/', views.managers),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('menuitems/', menuitems, name='menuitems'),              
+    path('menuitems/<int:pk>/', singleitem, name='singleitem'),   
+    path('mealitems/', MealItemView.as_view(), name='mealitems'), 
+    path('cart/', cart, name='cart'),                            
+    path('orders/', OrderView.as_view(), name='orders'),          
 ]

@@ -9,10 +9,7 @@ from .models import Notification
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def list_notifications(request):
-    """
-    Fetch all notifications for the logged-in user.
-    Unread notifications are shown first.
-    """
+  
     notifications = Notification.objects.filter(recipient=request.user).order_by("read", "-timestamp")
 
     data = []
@@ -32,9 +29,7 @@ def list_notifications(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def mark_notification_read(request, notification_id):
-    """
-    Mark a specific notification as read.
-    """
+ 
     notification = get_object_or_404(Notification, id=notification_id, recipient=request.user)
     notification.read = True
     notification.save()

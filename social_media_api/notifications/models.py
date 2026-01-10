@@ -13,9 +13,8 @@ class Notification(models.Model):
         on_delete=models.CASCADE,
         related_name="notifications_sent"
     )
-    verb = models.CharField(max_length=255)  # e.g. "liked", "commented", "followed"
+    verb = models.CharField(max_length=255) 
 
-    # Generic relation to any object (Post, Comment, etc.)
     target_content_type = models.ForeignKey(
         ContentType,
         on_delete=models.CASCADE,
